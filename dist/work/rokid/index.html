@@ -1,177 +1,24 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#f7faf8" />
-    <meta
-      name="description"
-      content="Rokid AR Guide: an exhibition-guide system connecting recognition, reviewed knowledge, and on-glasses explanations."
-    />
-    <title>Rokid AR Guide — Jesse Zeng</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    <header class="site-header wrap">
-      <a class="brand" href="/">Jesse Zeng</a>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="/#work">Work</a><a href="/about/">About</a
-        ><a href="mailto:jesse.zeng.work@gmail.com">Contact</a
-        ><a class="resume-link" href="/Jesse_Zeng_Resume.pdf">Resume</a>
-      </nav>
-    </header>
-    <main class="wrap">
-      <header class="page-head">
-        <a class="back" href="/#work">← All work</a
-        ><span class="eyebrow">01 / Smart devices · Applied AI</span>
-        <h1>Rokid AR Guide<span style="color: var(--green)">.</span></h1>
-        <p>
-          An exhibition guide that helps visitors recognize an exhibit, hear a
-          reviewed introduction, and continue exploring through questions on
-          smart glasses.
-        </p>
-        <div class="case-facts">
-          <span>Role<strong>Project team lead</strong></span
-          ><span>Context<strong>Engineering internship · 2026</strong></span
-          ><span>Focus<strong>Android · Python · AR interaction</strong></span>
-        </div>
-      </header>
-      <div
-        class="project-visual visual-rokid case-diagram"
-        role="img"
-        aria-label="System flow: camera sees exhibit, service identifies context, smart glasses explain it to the visitor"
-      >
-        <div class="visual-top">
-          <span>ROKID AR GUIDE / SYSTEM MAP</span
-          ><span>VISITOR EXPERIENCE</span>
-        </div>
-        <div class="visual-flow">
-          <div class="visual-line">
-            <b>01</b><span>Camera input</span><i></i><em>FRESH FRAME</em>
-          </div>
-          <div class="visual-line">
-            <b>02</b><span>Exhibit context</span><i></i
-            ><em>REVIEWED KNOWLEDGE</em>
-          </div>
-          <div class="visual-line">
-            <b>03</b><span>Text + speech</span><i></i><em>SMART GLASSES</em>
-          </div>
-        </div>
-      </div>
-      <div class="case-body">
-        <h2>The case / 01</h2>
-        <article>
-          <p>
-            Visitors should be able to look at an exhibit and get an explanation
-            that stays with the object they are viewing. The engineering
-            challenge was to connect camera capture, recognition,
-            exhibit-specific knowledge, and a readable on-glasses response into
-            one dependable flow.
-          </p>
-          <div class="case-example">
-            <span class="mono">Visitor journey / illustrated</span>
-            <p>
-              Look at an exhibit → hear its reviewed introduction → ask a
-              follow-up question while the answer stays tied to that exhibit.
-            </p>
-          </div>
-          <h3>My contribution</h3>
-          <p>
-            I led the project team and integrated the Android camera pipeline
-            with a Python service. We prioritized fresh frames so recognition
-            would respond to what the visitor was currently seeing. I also
-            worked on how reviewed introductions and AI-generated follow-up
-            answers were separated, and refined the text and speech experience
-            on the glasses.
-          </p>
-          <p>
-            The project combined device input, server responses, and a visitor
-            interface. My role was to keep those parts moving together while
-            making the interaction dependable enough for a real exhibition
-            setting.
-          </p>
-          <h3>How the flow fits together</h3>
-          <ul>
-            <li>
-              <strong>Capture:</strong> The Android camera pipeline supplies
-              frames to the Python service, with fresher frames prioritized for
-              recognition.
-            </li>
-            <li>
-              <strong>Context:</strong> The recognized exhibit determines which
-              reviewed material should ground the introduction and later
-              questions.
-            </li>
-            <li>
-              <strong>Delivery:</strong> Text and speech bring the explanation
-              back to the visitor on the glasses.
-            </li>
-          </ul>
-          <h3>Decisions that mattered</h3>
-          <ul>
-            <li>
-              <strong>Keep the current exhibit in context.</strong> Answers need
-              to stay tied to the recognized object, especially when a visitor
-              moves to another exhibit.
-            </li>
-            <li>
-              <strong>Make introduction content dependable.</strong> Reviewed
-              exhibit material and generated follow-up responses serve different
-              purposes and were handled separately.
-            </li>
-            <li>
-              <strong>Design for the device.</strong> Short on-glasses text and
-              speech delivery matter as much as the service response.
-            </li>
-          </ul>
-          <h3>What was verified</h3>
-          <p>
-            Recognition, exhibit switching, and introduction playback passed
-            user acceptance and regression checks in the internship project. The
-            practical result was an exhibit flow that could be exercised and
-            checked, including the handoff when a visitor moved to another
-            exhibit.
-          </p>
-          <p>
-            The diagram above describes the system at a high level. It does not
-            claim a specific recognition model, measured latency, or support for
-            every Rokid device.
-          </p>
-          <p class="note">
-            Some device and project materials may not be public. This page
-            describes my documented contribution without exposing internal
-            assets or promising support for unverified hardware configurations.
-          </p>
-          <div class="case-links">
-            <a
-              class="text-link"
-              href="mailto:jesse.zeng.work@gmail.com?subject=Rokid%20AR%20Guide"
-              >Ask about this project ↗</a
-            >
-          </div>
-        </article>
-      </div>
-      <div class="next-case">
-        <span class="eyebrow">Next case / 02</span
-        ><a href="/work/allabout/">AllAbout Campus ↗</a>
-      </div>
-    </main>
-    <footer class="footer wrap">
-      <span>© 2026 Jesse Zeng</span>
-      <div class="footer-links">
-        <a href="mailto:jesse.zeng.work@gmail.com">Email</a
-        ><a
-          href="https://github.com/Jesse-Zeng423"
-          target="_blank"
-          rel="noopener noreferrer"
-          >GitHub</a
-        ><a
-          href="https://www.linkedin.com/in/jesse-zeng"
-          target="_blank"
-          rel="noopener noreferrer"
-          >LinkedIn</a
-        >
-      </div>
-    </footer>
-  </body>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff">
+  <meta name="description" content="How Jesse Zeng helped build an AR exhibition guide for smart glasses.">
+  <title>Rokid AR Guide — Jesse Zeng</title><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header wrap"><a class="site-name" href="/">Jesse Zeng</a><nav class="nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a></nav></header>
+  <main class="wrap">
+    <header class="page-header"><a class="back" href="/#work">← All work</a><p class="page-kicker">01 / Internship project</p><h1>Rokid AR Guide</h1><p class="page-summary">An exhibition guide for smart glasses. A visitor looks at an exhibit, hears a reviewed introduction, and can ask questions while that exhibit remains the context.</p><dl class="facts"><div><dt>Role</dt><dd>Project team lead</dd></div><div><dt>When</dt><dd>July–August 2026</dd></div><div><dt>Tools</dt><dd>Android, Kotlin, Python</dd></div></dl></header>
+    <div class="case"><span class="case-label">The project</span><article class="case-content">
+      <h2>What we were building</h2><p>A useful museum guide has to do more than identify an object. It has to respond to the object the visitor is seeing now, present information that has been reviewed, and continue the conversation without drifting to another exhibit. On smart glasses, it also has to keep text and speech brief enough to use while walking around.</p>
+      <h2>What I did</h2><p>I led the project team and integrated the Android camera pipeline with a Python service. We prioritized newer frames so recognition could respond to the visitor's current view. I also worked on separating reviewed introductions from AI-generated follow-up answers and refined the on-glasses text and speech experience.</p>
+      <blockquote><small>The central design question</small>How do we keep the explanation attached to the object in front of the visitor when the scene changes?</blockquote>
+      <h2>How the parts fit</h2><p>The camera supplies frames for recognition. Once an exhibit is identified, its reviewed material provides the introduction and grounds later answers. Text and speech bring the response back to the glasses. When the visitor changes exhibits, the active exhibit context needs to change with them.</p><p>The work crossed device input, server behavior, and visitor interaction. That made handoffs between components as important as any single feature.</p>
+      <h2>What we checked</h2><p>Recognition, exhibit switching, and introduction playback passed user acceptance and regression checks during the internship. Those checks support the specific flow described here; they do not establish measured latency or compatibility with every Rokid device.</p><p class="subtle">The project was built during an internship, so this page uses a written account rather than internal screenshots or source code.</p>
+      <div class="case-links"><a class="quiet-link" href="mailto:jesse.zeng.work@gmail.com?subject=Rokid%20AR%20Guide">Ask me about this work</a></div>
+    </article></div>
+    <div class="next-case"><span>Next project</span><a href="/work/allabout/">AllAbout Campus →</a></div>
+  </main>
+  <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
+</body>
 </html>
