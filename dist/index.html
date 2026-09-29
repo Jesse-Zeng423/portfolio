@@ -4,54 +4,76 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Jesse Zeng is a computer science student building web tools, AI systems, and device experiences.">
-  <title>Jesse Zeng — Software projects</title>
+  <meta name="description" content="Jesse Zeng, computer science student at the University of Toronto. Projects: an AR exhibition guide, a campus research demo, and a memory-review prototype for agents.">
+  <title>Jesse Zeng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="site-header wrap">
     <a class="site-name" href="/">Jesse Zeng</a>
     <nav class="nav" aria-label="Main navigation">
       <a href="#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a>
     </nav>
   </header>
-  <main>
-    <section class="hero wrap">
-      <p class="eyebrow">Computer science student · Toronto</p>
+  <main id="main">
+    <section class="intro wrap">
       <h1>Jesse Zeng</h1>
-      <p class="hero-intro">I'm a computer science student at the University of Toronto. I've built an AR exhibition guide, a campus research tool, and a small prototype about how agents use memory.</p>
-      <div class="hero-links"><a class="quiet-link" href="#work">See my work</a><a class="quiet-link" href="mailto:jesse.zeng.work@gmail.com">Email me</a></div>
-    </section>
-
-    <section class="section wrap" id="work">
-      <div class="section-heading"><h2>Selected work</h2><p>Three projects from different settings: an exhibition, a campus question desk, and an experiment in how agents use memory.</p></div>
-      <article class="work-row">
-        <span class="work-index">01</span>
-        <div class="work-copy"><h3 class="work-title"><a href="/work/rokid/">Rokid AR Guide</a></h3><p>I led a small team building an exhibition guide for smart glasses. Visitors could identify an exhibit, hear a reviewed introduction, and ask follow-up questions.</p><p>I connected the Android camera pipeline to a Python service and worked on keeping answers tied to the exhibit in view. Recognition, exhibit switching, and introduction playback passed acceptance and regression checks.</p><a class="work-link" href="/work/rokid/">Read the case study</a></div>
-        <span class="work-date">Internship · 2026</span>
-      </article>
-      <article class="work-row">
-        <span class="work-index">02</span>
-        <div class="work-copy"><h3 class="work-title"><a href="/work/allabout/">AllAbout Campus</a></h3><p>A hackathon project that helps students find answers across university pages and see the sources behind them.</p><p>I led the team and brought together the React interface, Fastify service, and live browser workflow. The result reports when a source is unavailable or does not provide enough evidence.</p><a class="work-link" href="/work/allabout/">Read the case study</a></div>
-        <span class="work-date">Hackathon · 2026</span>
-      </article>
-      <article class="work-row">
-        <span class="work-index">03</span>
-        <div class="work-copy"><h3 class="work-title"><a href="/work/memory-guard/">Memory Applicability Guard</a></h3><p>An independent Python prototype that reviews whether an agent should use, ignore, or clarify a stored memory before acting on it.</p><p>The tool records its reason and the evidence behind it. The related experiment did not beat its baseline, a useful result that shaped the project's narrower scope.</p><a class="work-link" href="/work/memory-guard/">Read the case study</a></div>
-        <span class="work-date">Independent · 2026</span>
-      </article>
-      <div class="more-work"><span class="work-index">04</span><div><h3>FlowList</h3><p>A playlist sequencing prototype. It imports public YouTube playlists or manual tracks, then uses track metadata to sketch mood chapters and transitions.</p><a class="work-link" href="https://flow-list-kappa.vercel.app" target="_blank" rel="noopener noreferrer">Open FlowList</a></div><span class="work-date">Independent · 2026</span></div>
-    </section>
-
-    <section class="section wrap">
-      <div class="section-heading"><h2>Background</h2><p>I study computer science at the University of Toronto and have worked across Android, web, and applied AI projects.</p></div>
-      <div class="background-grid">
-        <div><span class="small">2026 · Guangzhou</span><h3>AI & Cloud Solutions Engineering Intern</h3><p>At Aspire Digital Technology, I led the AR guide project, evaluated agent workflows, and improved task feedback and exception alerts in frontend work.</p></div>
-        <div><span class="small">2025–2029 · Toronto</span><h3>University of Toronto</h3><p>Honours Bachelor of Science in Computer Science, expected 2029. I build independent projects alongside my studies.</p></div>
+      <p>I study computer science at the University of Toronto (HBSc, expected 2029). In summer 2026 I interned at Aspire Digital Technology in Guangzhou, where I led the team building an exhibition guide for Rokid smart glasses.</p>
+      <p>I'm looking for software engineering and applied AI internships.</p>
+      <div class="links">
+        <a href="mailto:jesse.zeng.work@gmail.com">jesse.zeng.work@gmail.com</a>
+        <a href="/Jesse_Zeng_Resume.pdf">Résumé (PDF)</a>
+        <a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </section>
 
-    <section class="closing wrap"><p>I'm interested in software engineering and applied AI internships.</p><a class="quiet-link" href="mailto:jesse.zeng.work@gmail.com">Get in touch</a></section>
+    <section class="section wrap" id="work" aria-labelledby="work-title">
+      <h2 id="work-title">Work</h2>
+      <article class="project">
+        <p class="meta">01 · Internship<br>Jul–Aug 2026</p>
+        <div>
+          <h3><a href="/work/rokid/">Rokid AR Guide</a></h3>
+          <p>A museum guide for smart glasses: look at an exhibit, hear a reviewed introduction, then ask follow-up questions about that exhibit.</p>
+          <p>I led the project team, connected the Android camera pipeline to the Python recognition service, and kept reviewed introductions separate from AI-generated answers.</p>
+        </div>
+      </article>
+      <article class="project">
+        <p class="meta">02 · Hackathon<br>Sep 2026</p>
+        <div>
+          <h3><a href="/work/allabout/">AllAbout Campus</a></h3>
+          <p>A hackathon demo that answers U of T and Waterloo course questions with citations, while a browser panel shows the pages being read.</p>
+          <p>I led the team, joined the React front end, Fastify server, and Steel browser workflow, and built source routing, evidence extraction, and the coverage receipt.</p>
+        </div>
+      </article>
+      <article class="project">
+        <p class="meta">03 · Independent<br>May–Aug 2026</p>
+        <div>
+          <h3><a href="/work/memory-guard/">Memory Applicability Guard</a></h3>
+          <p>A small Python tool that checks whether an agent should use, ignore, or ask about a stored memory before relying on it.</p>
+          <p>I wrote the decision rules, tests, and agent-skill packaging. The related experiment tied its baseline at 110/128, so I scoped the tool as a review aid rather than a safety system.</p>
+        </div>
+      </article>
+      <article class="project">
+        <p class="meta">04 · Independent<br>Apr 2026</p>
+        <div class="minor">
+          <h3><a href="https://flow-list-kappa.vercel.app" target="_blank" rel="noopener noreferrer">FlowList</a></h3>
+          <p>A Next.js app that imports a public YouTube playlist or a manual track list and sketches mood chapters and transitions from track metadata.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section wrap" aria-labelledby="background-title">
+      <h2 id="background-title">Background</h2>
+      <ul class="record">
+        <li><span class="meta">2025–2029</span><div><strong>University of Toronto, St. George</strong><p>Honours Bachelor of Science, Computer Science (expected April 2029).</p></div></li>
+        <li><span class="meta">Jul–Aug 2026</span><div><strong>AI &amp; Cloud Solutions Engineering Intern, Aspire Digital Technology</strong><p>Project lead on the Rokid AR guide. Also evaluated AI agents on search, tool use, and scheduled tasks, documented reproducible failures, and worked on task feedback and error alerts in front-end and mini-program features.</p></div></li>
+      </ul>
+    </section>
   </main>
   <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
 </body>

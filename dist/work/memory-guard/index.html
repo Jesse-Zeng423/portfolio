@@ -2,21 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Memory Applicability Guard: a small research-informed tool for reviewing stored agent memory.">
-  <title>Memory Applicability Guard — Jesse Zeng</title><link rel="stylesheet" href="/style.css">
+  <meta name="description" content="Memory Applicability Guard: a small Python research prototype for reviewing whether an agent should rely on a stored memory.">
+  <title>Memory Applicability Guard — Jesse Zeng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="site-header wrap"><a class="site-name" href="/">Jesse Zeng</a><nav class="nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a></nav></header>
-  <main class="wrap">
-    <header class="page-header"><a class="back" href="/#work">← All work</a><p class="page-kicker">03 / Independent project</p><h1>Memory Applicability Guard</h1><p class="page-summary">A Python prototype that reviews whether an old memory should influence an agent's next answer or action.</p><dl class="facts"><div><dt>Role</dt><dd>Independent project</dd></div><div><dt>When</dt><dd>May–August 2026</dd></div><div><dt>Tools</dt><dd>Python, JSON, unit tests</dd></div></dl></header>
-    <div class="case"><span class="case-label">The project</span><article class="case-content">
-      <h2>The problem</h2><p>Memory can help an assistant remember useful context. It can also carry an old permission, a fact that has changed, or an instruction that does not belong in the current task. Retrieval alone cannot tell the agent whether to use it.</p>
-      <blockquote><small>Example</small>If an old note says a user allowed an action and the current request revokes that permission, the old note should no longer guide the action.</blockquote>
-      <h2>What I built</h2><p>I made a deterministic Python helper and packaged it as an installable agent skill. Given structured inputs, it recommends whether the memory should be used, ignored, or clarified. The output records the decisive evidence, a reason code, and a next step.</p><p>It treats two questions separately: whether the memory applies, and what the agent should do with the task. The latter may call for proceeding, revising, asking the user, checking an external fact, or escalating for review.</p>
-      <h2>What I learned</h2><p>The related frozen v0.7 experiment did not outperform its baseline; both scored 110 out of 128. That result matters. The project is now framed as an auditable review workflow, not as a proven way to make autonomous agents safe.</p><p class="subtle">The helper has deterministic tests and a public repository. It has not been validated as a production safety system.</p>
-      <div class="case-links"><a class="quiet-link" href="https://github.com/Jesse-Zeng423/memory-applicability-guard" target="_blank" rel="noopener noreferrer">View the repository</a></div>
-    </article></div>
-    <div class="next-case"><span>Back to the collection</span><a href="/#work">Selected work →</a></div>
+  <main id="main" class="wrap">
+    <header class="page-header">
+      <a class="back" href="/#work">← Work</a>
+      <p class="meta">03 · Independent project</p>
+      <h1>Memory Applicability Guard</h1>
+      <p class="summary">A small Python tool that reviews whether a stored memory should influence what an agent does next. It is a research prototype, not a validated safety product.</p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Solo</dd></div>
+        <div><dt>When</dt><dd>May–Aug 2026</dd></div>
+        <div><dt>Stack</dt><dd>Python standard library, JSON, unittest</dd></div>
+        <div><dt>License</dt><dd>Apache-2.0 (code), CC BY 4.0 (docs)</dd></div>
+      </dl>
+    </header>
+
+    <article class="prose">
+      <h2>The problem</h2>
+      <p>An agent with memory will retrieve old notes that look relevant. Relevant isn't the same as applicable. The user may have moved since they mentioned their local pool, withdrawn a permission they once gave, or stated a preference for one setting that doesn't carry over to another. Retrieval finds the memory; it doesn't say whether to rely on it.</p>
+
+      <h2>USE, IGNORE, ASK</h2>
+      <p>The tool answers one narrow question: how should the agent treat this particular memory?</p>
+      <dl class="terms">
+        <dt>USE</dt>
+        <dd>The memory applies directly (or the user explicitly said it carries over), permission is in place, and the evidence is sufficient.</dd>
+        <dt>IGNORE</dt>
+        <dd>Don't rely on it. The permission was revoked, newer information supersedes it, nothing links it to the current task, or a current fact has to be checked externally first. It's also the result when there's an action that works whichever way the uncertainty resolves.</dd>
+        <dt>ASK</dt>
+        <dd>Only the user can resolve the question, their answer would change what happens, and there's no action that works either way.</dd>
+      </dl>
+      <p>Uncertainty doesn't automatically mean ASK. A remembered train delay should be checked against current data, not turned into a question for the user.</p>
+
+      <h2>Memory decision vs. task decision</h2>
+      <p>This is the distinction the project is built around. The memory action (<code>USE</code>, <code>IGNORE</code>, <code>ASK</code>) is separate from whatever the agent is trying to do. The tool never approves or runs the task. Its verdict only says what to do about the memory:</p>
+      <ul>
+        <li><code>PASS</code>: the agent's proposed memory action matches the rules.</li>
+        <li><code>REVISE</code>: change how the memory is used; nothing else.</li>
+        <li><code>ASK_USER</code>, <code>VERIFY_EXTERNAL</code>, <code>ESCALATE</code>: the memory question has to go to the user, to a current external source, or to a human reviewer. Anything marked high-risk is escalated.</li>
+      </ul>
+      <p>For example, if the agent proposes to <code>USE</code> "trains at the downtown pool" and the user has since said they moved, the result is <code>REVISE</code> to <code>IGNORE</code>, with the move statement recorded as the decisive evidence.</p>
+
+      <h2>What I built</h2>
+      <p>A deterministic helper that takes one JSON object (the task, the memory, permission status, how the memory relates to the task, evidence status, risk level, and the evidence items) and applies a fixed order of rules. Revoked permission is checked first, then high risk, then whether external facts are needed, and so on. The output includes the memory action, the reason code, the decisive evidence, and a next step. It doesn't call a model, browse, or read memory stores; it only reviews what it's given.</p>
+      <p>It has 12 standard-library unit tests and an offline release verifier, and it's packaged as an installable agent skill.</p>
+
+      <h2>The experiment</h2>
+      <p>The related experiment, frozen at v0.7, compared a direct baseline (A0) with an evidence-first condition (M1) on 128 synthetic cases.</p>
+      <ul>
+        <li>Both scored 110/128 on memory-action correctness.</li>
+        <li>The evidence-first condition fixed 6 cases and broke 6 others, for a net change of zero.</li>
+        <li>Both recalled 60% of the cases that should have been ASK.</li>
+      </ul>
+      <p>The pre-set stopping rule said to stop at v0.7, so I did. The tool doesn't claim to improve accuracy. What it does offer is a readable record of why a memory was used or set aside.</p>
+      <!-- TODO(confirm): what A0 / M1 were in plain terms (prompting conditions on one model?), so the comparison can be described more concretely. -->
+
+      <h2>Limits</h2>
+      <p>The results come from one model setting and synthetic, expert-reviewed cases, not real users. The helper relies on structured labels that someone has to supply correctly. It is not production validated and shouldn't be used to approve medical, legal, financial, employment, or other high-stakes decisions.</p>
+      <p><a href="https://github.com/Jesse-Zeng423/memory-applicability-guard" target="_blank" rel="noopener noreferrer">Repository on GitHub</a></p>
+    </article>
+
+    <nav class="next" aria-label="Next page"><span class="meta">Next</span><a href="/about/">About</a></nav>
   </main>
   <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
 </body>

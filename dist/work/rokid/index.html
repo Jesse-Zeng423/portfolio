@@ -2,22 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff">
-  <meta name="description" content="How Jesse Zeng helped build an AR exhibition guide for smart glasses.">
-  <title>Rokid AR Guide — Jesse Zeng</title><link rel="stylesheet" href="/style.css">
+  <meta name="description" content="Rokid AR Guide: an exhibition guide for smart glasses, built during Jesse Zeng's 2026 internship.">
+  <title>Rokid AR Guide — Jesse Zeng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="site-header wrap"><a class="site-name" href="/">Jesse Zeng</a><nav class="nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a></nav></header>
-  <main class="wrap">
-    <header class="page-header"><a class="back" href="/#work">← All work</a><p class="page-kicker">01 / Internship project</p><h1>Rokid AR Guide</h1><p class="page-summary">An exhibition guide for smart glasses. A visitor looks at an exhibit, hears a reviewed introduction, and can ask questions while that exhibit remains the context.</p><dl class="facts"><div><dt>Role</dt><dd>Project team lead</dd></div><div><dt>When</dt><dd>July–August 2026</dd></div><div><dt>Tools</dt><dd>Android, Kotlin, Python</dd></div></dl></header>
-    <div class="case"><span class="case-label">The project</span><article class="case-content">
-      <h2>What we were building</h2><p>A useful museum guide has to do more than identify an object. It has to respond to the object the visitor is seeing now, present information that has been reviewed, and continue the conversation without drifting to another exhibit. On smart glasses, it also has to keep text and speech brief enough to use while walking around.</p>
-      <h2>What I did</h2><p>I led the project team and integrated the Android camera pipeline with a Python service. We prioritized newer frames so recognition could respond to the visitor's current view. I also worked on separating reviewed introductions from AI-generated follow-up answers and refined the on-glasses text and speech experience.</p>
-      <blockquote><small>The central design question</small>How do we keep the explanation attached to the object in front of the visitor when the scene changes?</blockquote>
-      <h2>How the parts fit</h2><p>The camera supplies frames for recognition. Once an exhibit is identified, its reviewed material provides the introduction and grounds later answers. Text and speech bring the response back to the glasses. When the visitor changes exhibits, the active exhibit context needs to change with them.</p><p>The work crossed device input, server behavior, and visitor interaction. That made handoffs between components as important as any single feature.</p>
-      <h2>What we checked</h2><p>Recognition, exhibit switching, and introduction playback passed user acceptance and regression checks during the internship. Those checks support the specific flow described here; they do not establish measured latency or compatibility with every Rokid device.</p><p class="subtle">The project was built during an internship, so this page uses a written account rather than internal screenshots or source code.</p>
-      <div class="case-links"><a class="quiet-link" href="mailto:jesse.zeng.work@gmail.com?subject=Rokid%20AR%20Guide">Ask me about this work</a></div>
-    </article></div>
-    <div class="next-case"><span>Next project</span><a href="/work/allabout/">AllAbout Campus →</a></div>
+  <main id="main" class="wrap">
+    <header class="page-header">
+      <a class="back" href="/#work">← Work</a>
+      <p class="meta">01 · Internship project</p>
+      <h1>Rokid AR Guide</h1>
+      <p class="summary">An exhibition guide for Rokid smart glasses. A visitor looks at an exhibit, hears a reviewed introduction, and can ask follow-up questions while that exhibit stays the topic.</p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Project team lead</dd></div>
+        <div><dt>When</dt><dd>Jul–Aug 2026</dd></div>
+        <div><dt>Where</dt><dd>Aspire Digital Technology, Guangzhou</dd></div>
+        <div><dt>Stack</dt><dd>Android, Kotlin, Python</dd></div>
+      </dl>
+    </header>
+
+    <article class="prose">
+      <h2>The visitor's situation</h2>
+      <p>Someone walking through an exhibition wears the glasses and stops in front of an object. The guide should work out which exhibit they're facing, give a short introduction by text and speech, and let them ask a question without losing track of the object. When they move to the next exhibit, the guide should move with them.</p>
+
+      <h2>Camera to server</h2>
+      <p>An Android camera pipeline captures frames and hands them to a Python service that recognizes the exhibit. I integrated the two. The main decision was to prioritize fresh frames: when the visitor turns their head, the frame that matters is the latest one, not an older frame still waiting to be processed. Giving newer frames priority made recognition follow the current view more closely.</p>
+      <!-- TODO(confirm): whether the Android app ran on the glasses or a paired phone; transport between app and service (HTTP, WebSocket, etc.) and how stale frames were handled (dropped vs. deprioritized). Add only if you want that detail public. -->
+
+      <h2>Exhibit context</h2>
+      <p>Once an exhibit is recognized, it becomes the active context. Its reviewed material supplies the introduction and is also the knowledge base for follow-up answers, so a question like "when was this made?" is answered about this object and not a neighbouring one. Recognizing a different exhibit replaces the context.</p>
+
+      <h2>Reviewed introductions vs. AI answers</h2>
+      <p>The introduction and the follow-up answers come from different places, and we kept them separate on purpose.</p>
+      <ul>
+        <li><strong>Introduction:</strong> prepared and reviewed ahead of time, then played as written.</li>
+        <li><strong>Follow-up answers:</strong> generated by a language model at the moment of the question and grounded in that exhibit's reviewed material. They can still be wrong, which is why they aren't mixed into the reviewed introduction.</li>
+      </ul>
+      <p>I also trimmed the on-glasses text and speech so they're short enough to follow while standing in a gallery.</p>
+
+      <h2>What acceptance covered</h2>
+      <p>Three flows passed user acceptance and regression checks during the internship: exhibit recognition, switching between exhibits, and introduction playback.</p>
+      <p>That is the extent of what I can claim. I don't have recognition accuracy, latency figures, or results across different Rokid models, so this page doesn't give any.</p>
+      <!-- TODO(confirm): whether follow-up Q&A was part of acceptance testing. -->
+      <p class="note">This was internship work, so there are no screenshots or source code here. I'm happy to walk through it in conversation.</p>
+      <p><a href="mailto:jesse.zeng.work@gmail.com?subject=Rokid%20AR%20Guide">Email me about this project</a></p>
+    </article>
+
+    <nav class="next" aria-label="Next project"><span class="meta">Next</span><a href="/work/allabout/">AllAbout Campus</a></nav>
   </main>
   <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
 </body>
