@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17191a" />
+    <meta
+      name="description"
+      content="FlowList: a metadata-based playlist sequencing prototype by Jesse Zeng."
+    />
+    <title>FlowList | Jesse Zeng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/terminal.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="terminal-window">
+      <header class="site-header">
+        <a class="site-name" href="/" aria-label="Jesse Zeng, home"
+          ><span class="host">jesse</span>@portfolio<span
+            class="prompt"
+            aria-hidden="true"
+            >$</span
+          ></a
+        >
+        <nav class="nav" aria-label="Main">
+          <a href="/">Home</a
+          ><a href="/projects/" aria-current="page">Projects</a
+          ><a href="/experience/">Experience</a><a href="/resume/">Résumé</a
+          ><a href="/contact/">Contact</a>
+          <label class="theme-picker" title="Theme color"
+            ><span class="sr-only">Theme color</span
+            ><input
+              type="color"
+              value="#b0d8be"
+              aria-label="Theme color"
+              disabled
+          /></label>
+        </nav>
+      </header>
+      <div class="location">
+        <span class="path">~/projects/flowlist</span
+        ><span class="location-note">Jesse Zeng / portfolio</span>
+      </div>
+      <main id="main">
+        <header class="page-head">
+          <a class="back" href="/projects/">All projects</a>
+          <p class="meta">04 / Independent product prototype</p>
+          <h1>FlowList</h1>
+          <p class="summary">
+            A playlist-ordering tool that turns a collection of tracks into a
+            proposed listening sequence. It uses metadata and estimated
+            features, not audio analysis.
+          </p>
+        </header>
+        <nav class="section-tabs" aria-label="Case study sections">
+          <a href="#overview" data-panel-link="overview">Overview</a
+          ><a href="#engineering" data-panel-link="engineering">Engineering</a
+          ><a href="#results" data-panel-link="results">Results & evidence</a>
+        </nav>
+        <section class="page-panel" id="overview" aria-label="Overview">
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Independent project</dd>
+            </div>
+            <div>
+              <dt>When</dt>
+              <dd>2026 / ongoing</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Next.js, TypeScript, Tailwind</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Metadata-based prototype</dd>
+            </div>
+          </dl>
+          <div class="brief brief-single">
+            <div class="brief-main">
+              <h2>What I built</h2>
+              <ul>
+                <li>
+                  A flow-selection and sequencing pipeline with chapter
+                  structure, transition costs and deterministic output.
+                </li>
+                <li>
+                  Editable results: reorder tracks, lock endpoints, compare with
+                  the original order and recompute transitions.
+                </li>
+                <li>
+                  Platform import/export code and optional feedback collection,
+                  with real-account validation kept separate from local checks.
+                </li>
+              </ul>
+              <div class="actions">
+                <a
+                  class="action"
+                  href="https://flow-list-kappa.vercel.app/import?demo=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Open public demo ↗</a
+                ><a class="action" href="#results">See captured result ↗</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          class="page-panel prose"
+          id="engineering"
+          aria-label="Engineering"
+        >
+          <details class="topic-details" name="flowlist-engineering" open>
+            <summary><h2>Order is the product</h2></summary>
+            <div class="topic-content">
+              <p>
+                The tool proposes an order for tracks already in a playlist.
+                Users select a playlist type and a flow, such as an energy wave
+                or a progression from scattered material toward coherence. The
+                result includes chapter positions and explanations for
+                transitions.
+              </p>
+              <p>
+                The estimates come from metadata and deterministic heuristics. A
+                mood label or approximate BPM range is not a measurement of the
+                recording.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="flowlist-engineering">
+            <summary><h2>Structure first, transitions second</h2></summary>
+            <div class="topic-content">
+              <figure class="diagram">
+                <ol class="diagram-flow" aria-label="Sequencing stages">
+                  <li>
+                    <strong>01 / Structure</strong
+                    ><span
+                      >Apply the chosen strategy and preserve chapter and
+                      endpoint constraints.</span
+                    >
+                  </li>
+                  <li>
+                    <strong>02 / Cost</strong
+                    ><span
+                      >Score positional fit and neighbouring transitions using
+                      multiple estimated features.</span
+                    >
+                  </li>
+                  <li>
+                    <strong>03 / Refine</strong
+                    ><span
+                      >Run bounded local optimization, then recalculate
+                      explanations and transition scores.</span
+                    >
+                  </li>
+                </ol>
+                <figcaption>
+                  Deterministic local refinement, not a globally optimal order
+                  or a learned listening-quality model.
+                </figcaption>
+              </figure>
+              <p>
+                Local refinement uses a bounded search rather than testing every
+                permutation. Chapter-sensitive strategies refine within
+                chapters, soft landings remain protected, and loop strategies
+                include the last-to-first transition. Repeated occurrences are
+                preserved by their position in the input, not collapsed by track
+                ID.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="flowlist-engineering">
+            <summary><h2>Give the listener control</h2></summary>
+            <div class="topic-content">
+              <p>
+                The newer result-editor code adds confidence labels, endpoint
+                locks, manual reordering and comparison with the original
+                playlist. After an edit, transitions are recomputed instead of
+                leaving explanations attached to an obsolete order.
+              </p>
+              <p>
+                These controls let users revise a heuristic proposal. Their
+                presence in the local code does not establish that every control
+                is available in the older public deployment shown below.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="flowlist-engineering">
+            <summary><h2>Export is a separate boundary</h2></summary>
+            <div class="topic-content">
+              <p>
+                YouTube export code includes OAuth, review before creation and
+                resuming an interrupted export. Apple Music paths retain
+                provider track IDs across import and export. Cross-platform
+                track matching is not implemented.
+              </p>
+              <p>
+                A text export and a provider write are different operations.
+                Real Google and Apple account writes still need an owner-account
+                smoke test; I do not describe those integrations as
+                production-validated.
+              </p>
+            </div>
+          </details>
+        </section>
+        <section
+          class="page-panel prose"
+          id="results"
+          aria-label="Results and evidence"
+        >
+          <details class="topic-details" name="flowlist-results" open>
+            <summary><h2>A real demo result</h2></summary>
+            <div class="topic-content">
+              <figure class="interface-shot">
+                <img
+                  src="/assets/flowlist-demo.jpg"
+                  width="1280"
+                  height="720"
+                  loading="lazy"
+                  alt="FlowList public demo result showing a ten-track fictional playlist, chapter labels, estimated rhythm and energy, and text export controls."
+                />
+                <figcaption>
+                  Captured October 3, 2026 after running the public demo with
+                  its fictional ten-track playlist. This older deployment
+                  demonstrates sequencing and text export controls, not the
+                  newer account integrations.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+          <details class="topic-details" name="flowlist-results">
+            <summary><h2>What the checks establish</h2></summary>
+            <div class="topic-content">
+              <p>
+                The sequencing checks exercise 54 strategy cards and 135
+                dual-card combinations for structural properties. This checks
+                constraints and consistent output, not whether listeners prefer
+                the resulting order.
+              </p>
+              <p>
+                The public demo was run through to a result for this case study.
+                Newer local editor, provider-export and feedback code has
+                implementation checks, but real-account export and real-user
+                feedback remain unverified.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="flowlist-results">
+            <summary><h2>What I still need to learn</h2></summary>
+            <div class="topic-content">
+              <p>
+                The next useful evidence is a listener comparing an original
+                order with the proposed sequence, making edits and explaining
+                the transitions that do not work. Metadata estimates alone
+                cannot validate musical continuity. No improved
+                listening-quality score is claimed here.
+              </p>
+            </div>
+          </details>
+        </section>
+        <nav class="case-return" aria-label="Project navigation">
+          <a class="action" href="/projects/">← All projects</a>
+        </nav>
+      </main>
+      <footer class="footer">
+        <a class="home-link" href="/">[ Home ]</a
+        ><span>© 2026 Jesse Zeng</span>
+        <div class="footer-links">
+          <a href="mailto:jesse.zeng.work@gmail.com">Email</a
+          ><a
+            href="https://github.com/Jesse-Zeng423"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          ><a
+            href="https://www.linkedin.com/in/jesse-zeng"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

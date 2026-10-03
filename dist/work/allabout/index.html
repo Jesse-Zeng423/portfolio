@@ -1,74 +1,377 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff">
-  <meta name="description" content="AllAbout Campus: a hackathon demo that answers campus questions with citations and a record of which sources were checked.">
-  <title>AllAbout Campus — Jesse Zeng</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header wrap"><a class="site-name" href="/">Jesse Zeng</a><nav class="nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a></nav></header>
-  <main id="main" class="wrap">
-    <header class="page-header">
-      <a class="back" href="/#work">← Work</a>
-      <p class="meta">02 · Hackathon project</p>
-      <h1>AllAbout Campus</h1>
-      <p class="summary">A hackathon demo for U of T and Waterloo course questions. It opens the relevant pages in a browser you can watch, answers with citations, and lists which sources it could read, which needed a login, and which it skipped.</p>
-      <dl class="facts">
-        <div><dt>Role</dt><dd>Team lead, Team Chill</dd></div>
-        <div><dt>When</dt><dd>Sep 2026</dd></div>
-        <div><dt>Event</dt><dd>Battle of Schools Hackathon</dd></div>
-        <div><dt>Stack</dt><dd>React, TypeScript, Fastify, Steel SDK, Playwright</dd></div>
-      </dl>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17191a" />
+    <meta
+      name="description"
+      content="AllAbout Campus — Jesse Zeng, University of Toronto computer science student. Software engineering, AI agents and connected devices."
+    />
+    <title>AllAbout Campus | Jesse Zeng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/terminal.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="terminal-window">
+      <header class="site-header">
+        <a class="site-name" href="/" aria-label="Jesse Zeng, home"
+          ><span class="host">jesse</span>@portfolio<span
+            class="prompt"
+            aria-hidden="true"
+            >$</span
+          ></a
+        >
+        <nav class="nav" aria-label="Main">
+          <a href="/">Home</a>
+          <a href="/projects/" aria-current="page">Projects</a>
+          <a href="/experience/">Experience</a>
+          <a href="/resume/">Résumé</a>
+          <a href="/contact/">Contact</a>
+          <label class="theme-picker" title="Theme color">
+            <span class="sr-only">Theme color</span>
+            <input
+              type="color"
+              value="#b0d8be"
+              aria-label="Theme color"
+              disabled
+            />
+          </label>
+        </nav>
+      </header>
+      <div class="location">
+        <span class="path">~/projects/allabout</span
+        ><span class="location-note">Jesse Zeng / portfolio</span>
+      </div>
+      <main id="main">
+        <header class="page-head">
+          <a class="back" href="/projects/">All projects</a>
+          <p class="meta">02 / Hackathon project</p>
+          <h1>AllAbout Campus</h1>
+          <p class="summary">
+            A web-agent demo our team built at the Battle of Schools Hackathon.
+            You ask a U of T or Waterloo question; it reads relevant pages,
+            answers with citations, and lists the sources it could not check.
+          </p>
+        </header>
+        <nav class="section-tabs" aria-label="Case study sections">
+          <a href="#overview" data-panel-link="overview">Overview</a
+          ><a href="#engineering" data-panel-link="engineering">Engineering</a
+          ><a href="#results" data-panel-link="results">Results & evidence</a>
+        </nav>
+        <section class="page-panel" id="overview" aria-label="Overview">
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Team lead, team of four</dd>
+            </div>
+            <div>
+              <dt>When</dt>
+              <dd>Sep 2026</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>React, TypeScript, Fastify, Steel SDK, Playwright</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Hackathon demo</dd>
+            </div>
+          </dl>
+          <div class="brief brief-single">
+            <div class="brief-main">
+              <h2>What I did</h2>
+              <ul>
+                <li>
+                  Team leadership: Rui, Yilin, Ziqin and I built it. I set the
+                  plan and led backend work with the team.
+                </li>
+                <li>
+                  Implementation: I connected the frontend, backend and browser
+                  flow and worked on source routing, evidence extraction and
+                  coverage reporting.
+                </li>
+                <li>
+                  Delivery: I added preflight and regression checks, reviewed
+                  the frontend and presented the final demo, recorded for
+                  YouTube.
+                </li>
+              </ul>
 
-    <figure class="figure">
-      <img src="/allabout-course-desk.png" alt="AllAbout Campus Course Desk before a question is asked: a chat panel with suggested CSC207 questions on the left and an empty Steel Live Browser panel on the right, labelled Demo." width="2014" height="1286">
-      <figcaption>Course Desk before a question is asked. Screenshot from <code>docs/screenshots/course-desk.png</code> in the team's public repository; the "Demo" label is part of that build.</figcaption>
-    </figure>
-
-    <article class="prose">
-      <h2>The problem</h2>
-      <p>Course deadlines, requirements, and event details are spread across university pages, course sites, and portals that need a login. A student can get a plausible answer from a chatbot, but not a way to see where it came from or whether an important page was never checked.</p>
-
-      <h2>What the demo does</h2>
-      <dl class="terms">
-        <dt>Course Desk</dt>
-        <dd>The student asks a question, such as whether an assignment deadline changed, and gets an answer with numbered citations.</dd>
-        <dt>Browser view</dt>
-        <dd>A read-only Steel browser session sits beside the chat, so the student can watch pages open as they're read and page back through them afterwards.</dd>
-        <dt>Citations</dt>
-        <dd>Every quoted piece of evidence has to appear in the text captured during the same run. Clicking a citation shows the source it came from.</dd>
-        <dt>Coverage receipt</dt>
-        <dd>A per-source record of what happened: read, blocked by a login, or skipped. A source that couldn't be reached is reported that way, not counted as reviewed.</dd>
-      </dl>
-
-      <h2>Live pages, fixtures, and logins</h2>
-      <p>The app labels every run with the mode it actually used, because a demo can easily blur these:</p>
-      <ul>
-        <li><strong>Live web</strong> browses current public U of T pages. Our acceptance question was about a carillon recital at Soldiers' Tower.</li>
-        <li><strong>Live fixture</strong> runs a real Steel browser session against public pages whose course content (a course called DEMO101) is explicitly fictional. This gave us a repeatable demo story.</li>
-        <li><strong>Local fixture</strong> is the fallback when those pages can't be reached. It uses bundled fictional data and is not live browsing, and the UI says so.</li>
-      </ul>
-      <p>Sources like Quercus and Piazza need a login. Students can save portal credentials in a keychain; they're encrypted on the server, used only for the matching login host, and never sent to the language model. Multi-factor login (UTORMFA) can't be completed automatically, so those sources show up as blocked.</p>
-
-      <h2>My part</h2>
-      <p>I led the team and was responsible for bringing the React front end, the Fastify server, and the Steel/Playwright browser workflow together into one flow. I implemented source routing, evidence extraction, and the coverage reporting that surfaces unreachable or insufficient sources. I also added the preflight and regression checks we ran before demos.</p>
-      <!-- TODO(confirm): teammates' names and who owned which parts (e.g. UI design, keychain, planner), if you want them credited here. -->
-
-      <h2>How we checked it</h2>
-      <p>The preflight script runs six checks: server health directly and through the front-end proxy, one live-web acceptance run, and three live-fixture acceptance runs. The regression checks cover source routing, browser execution, cancellation, cleanup of the browser session, and evidence integration. Both the fixture story and the live carillon question passed three runs in a row before the demo.</p>
-
-      <h2>Limits</h2>
-      <p>This is a hackathon demo, not a university information service. Acceptance covered the two scenarios above, not arbitrary courses. A cited answer can still miss a relevant rule, scanned PDFs without a text layer would need OCR, and live runs depend on OpenAI and Steel API access.</p>
-      <p><a href="https://github.com/Team-Chill-2026-9-12-Hackathon-Team/All-About" target="_blank" rel="noopener noreferrer">Repository on GitHub</a></p>
-    </article>
-
-    <nav class="next" aria-label="Next project"><span class="meta">Next</span><a href="/work/memory-guard/">Memory Applicability Guard</a></nav>
-  </main>
-  <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
-</body>
+              <ul class="links">
+                <li>
+                  <a
+                    href="https://github.com/Team-Chill-2026-9-12-Hackathon-Team/All-About"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Repository on GitHub</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section
+          class="page-panel prose"
+          id="engineering"
+          aria-label="Engineering"
+        >
+          <details class="topic-details" name="allabout-engineering" open>
+            <summary><h2>The problem</h2></summary>
+            <div class="topic-content">
+              <p>
+                Answers to course and campus questions are spread across
+                university sites, calendars and pages behind a login. An answer
+                is only useful if the student can see where it came from and
+                which pages were never checked.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="allabout-engineering">
+            <summary><h2>What the interface shows</h2></summary>
+            <div class="topic-content">
+              <ul>
+                <li>
+                  <strong>Course Desk.</strong> The question panel, with
+                  shortcuts for course desk, timetable and assessments, and
+                  sample questions for a course.
+                </li>
+                <li>
+                  <strong>Browser view.</strong> The Steel Live Browser panel
+                  shows pages as the agent reads them, and you can step back
+                  through them afterwards.
+                </li>
+                <li>
+                  <strong>Citations.</strong> The answer links to the pages it
+                  relied on.
+                </li>
+                <li>
+                  <strong>Coverage receipt.</strong> A record of which sources
+                  were checked, and which were inaccessible or did not contain
+                  enough evidence, so gaps are visible rather than hidden.
+                </li>
+              </ul>
+              <figure class="interface-shot">
+                <img
+                  src="/allabout-course-desk.png"
+                  width="2014"
+                  height="1286"
+                  alt="AllAbout Campus before a question is asked. The Course Desk is on the left; the Steel Live Browser panel on the right is marked Not connected and Demo."
+                />
+                <figcaption>
+                  Course Desk before a question is asked. This interface
+                  screenshot shows an empty demo state. The recorded fixture
+                  answer is under Results &amp; evidence.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+          <details class="topic-details" name="allabout-engineering">
+            <summary><h2>From question to evidence</h2></summary>
+            <div class="topic-content">
+              <figure class="diagram">
+                <ol class="diagram-flow" aria-label="Evidence pipeline">
+                  <li>
+                    <strong>01 / Route</strong
+                    ><span
+                      >Identify the course, term and question type; select
+                      relevant sources.</span
+                    >
+                  </li>
+                  <li>
+                    <strong>02 / Capture</strong
+                    ><span
+                      >Steel and Playwright capture page content; extracted
+                      quotations must occur in that content.</span
+                    >
+                  </li>
+                  <li>
+                    <strong>03 / Report</strong
+                    ><span
+                      >Return supported claims, citations, missing evidence and
+                      a source coverage receipt.</span
+                    >
+                  </li>
+                </ol>
+                <figcaption>
+                  Implemented pipeline: React/Vite interface, Fastify
+                  orchestrator, browser collector and shared Zod contracts.
+                </figcaption>
+              </figure>
+              <p>
+                University pages and community discussion are labelled
+                separately. A captured page is not automatically evidence for a
+                claim: the quoted text must support the answer and match its
+                course and term. API failures stop the live path instead of
+                silently substituting a keyword-based answer.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="allabout-engineering">
+            <summary><h2>A source-routing regression</h2></summary>
+            <div class="topic-content">
+              <p>
+                General course questions were being mixed with a Timetable
+                Builder source that did not answer them. This diluted the
+                evidence path. We changed general CSC207 and CSC148 routing to
+                the Academic Calendar and Computer Science department, and
+                removed the irrelevant source from the registry, interface
+                labels, coverage catalogue and smoke-test target.
+              </p>
+              <p>
+                The important change was consistency across those layers:
+                removing a source from the collector alone would still leave
+                misleading coverage expectations in the interface and tests.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="allabout-engineering">
+            <summary>
+              <h2 id="sources">Live, fixture and login-only sources</h2>
+            </summary>
+            <div class="topic-content">
+              <dl class="terms">
+                <div>
+                  <dt>Live browsing</dt>
+                  <dd>
+                    For public questions, OpenAI web search finds up to three
+                    relevant pages and Steel reads their content. This needs
+                    configured API access.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Fixture demo</dt>
+                  <dd>
+                    Repeatable runs from prepared data, labelled in the
+                    interface (“Demo sources”, “Simulated browsing”). Used for
+                    presenting, not as live research.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Login required</dt>
+                  <dd>
+                    The repository has Quercus and ACORN adapters and a login
+                    flow for private course material. I found no record
+                    confirming a real-account run during the hackathon. When a
+                    source can't be accessed, the coverage receipt says so.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </details>
+        </section>
+        <section
+          class="page-panel prose"
+          id="results"
+          aria-label="Results and evidence"
+        >
+          <details class="topic-details" name="allabout-results" open>
+            <summary><h2>Result and status</h2></summary>
+            <div class="topic-content">
+              <p>
+                A repeatable hackathon demo, still in development. Its fixture
+                replay shows how an updated deadline supersedes an older one and
+                how an unanswered question stays visible. Tests check routing
+                and evidence contracts; they do not establish that every answer
+                is correct. I found no record confirming a real-account Quercus
+                or ACORN run during the hackathon.
+                <a href="#sources">How sources are handled</a>
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="allabout-results">
+            <summary><h2>Recorded fixture run</h2></summary>
+            <div class="topic-content">
+              <figure class="brief-aside">
+                <dl class="sample">
+                  <div>
+                    <dt>Example question</dt>
+                    <dd>When is DEMO101 Assignment 2 due?</dd>
+                  </div>
+                  <div>
+                    <dt>Answer</dt>
+                    <dd>
+                      September 20, 2026 at 5:00 PM EDT, following an
+                      instructor's extension from September 18.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Coverage</dt>
+                    <dd>
+                      Three fictional sources checked: syllabus, instructor
+                      announcement and student discussion.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Unknown</dt>
+                    <dd>Late penalty was not found in the checked sources.</dd>
+                  </div>
+                </dl>
+                <figcaption>
+                  Excerpt from a partial <code>LIVE_FIXTURE</code> run using
+                  fictional sources, not a live university answer.
+                  <a
+                    href="https://github.com/Team-Chill-2026-9-12-Hackathon-Team/All-About/blob/main/outputs/demo-replay-snapshot.json"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Inspect the replay data</a
+                  >.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+          <details class="topic-details" name="allabout-results">
+            <summary><h2>Checks</h2></summary>
+            <div class="topic-content">
+              <p>
+                Preflight and regression checks cover routing, browser
+                execution, cancellation, cleanup and evidence integration, so
+                the public demo could be rerun reliably.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="allabout-results">
+            <summary><h2>Limits</h2></summary>
+            <div class="topic-content">
+              <p>
+                This is a hackathon demo, not a university information service.
+                The checks cover how the pipeline behaves, not whether answers
+                are correct, and a cited answer can still miss a relevant rule
+                or page. We are still developing it, including the login-based
+                sources.
+              </p>
+            </div>
+          </details>
+        </section>
+        <nav class="case-return" aria-label="Project navigation">
+          <a class="action" href="/projects/">← All projects</a>
+        </nav>
+      </main>
+      <footer class="footer">
+        <a class="home-link" href="/">[ Home ]</a
+        ><span>© 2026 Jesse Zeng</span>
+        <div class="footer-links">
+          <a href="mailto:jesse.zeng.work@gmail.com">Email</a
+          ><a
+            href="https://github.com/Jesse-Zeng423"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          ><a
+            href="https://www.linkedin.com/in/jesse-zeng"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

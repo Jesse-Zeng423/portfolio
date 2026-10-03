@@ -1,76 +1,397 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Memory Applicability Guard: a small Python research prototype for reviewing whether an agent should rely on a stored memory.">
-  <title>Memory Applicability Guard — Jesse Zeng</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header wrap"><a class="site-name" href="/">Jesse Zeng</a><nav class="nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a></nav></header>
-  <main id="main" class="wrap">
-    <header class="page-header">
-      <a class="back" href="/#work">← Work</a>
-      <p class="meta">03 · Independent project</p>
-      <h1>Memory Applicability Guard</h1>
-      <p class="summary">A small Python tool that reviews whether a stored memory should influence what an agent does next. It is a research prototype, not a validated safety product.</p>
-      <dl class="facts">
-        <div><dt>Role</dt><dd>Solo</dd></div>
-        <div><dt>When</dt><dd>May–Aug 2026</dd></div>
-        <div><dt>Stack</dt><dd>Python standard library, JSON, unittest</dd></div>
-        <div><dt>License</dt><dd>Apache-2.0 (code), CC BY 4.0 (docs)</dd></div>
-      </dl>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17191a" />
+    <meta
+      name="description"
+      content="Memory Applicability Guard — Jesse Zeng, University of Toronto computer science student. Software engineering, AI agents and connected devices."
+    />
+    <title>Memory Applicability Guard | Jesse Zeng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/terminal.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="terminal-window">
+      <header class="site-header">
+        <a class="site-name" href="/" aria-label="Jesse Zeng, home"
+          ><span class="host">jesse</span>@portfolio<span
+            class="prompt"
+            aria-hidden="true"
+            >$</span
+          ></a
+        >
+        <nav class="nav" aria-label="Main">
+          <a href="/">Home</a>
+          <a href="/projects/" aria-current="page">Projects</a>
+          <a href="/experience/">Experience</a>
+          <a href="/resume/">Résumé</a>
+          <a href="/contact/">Contact</a>
+          <label class="theme-picker" title="Theme color">
+            <span class="sr-only">Theme color</span>
+            <input
+              type="color"
+              value="#b0d8be"
+              aria-label="Theme color"
+              disabled
+            />
+          </label>
+        </nav>
+      </header>
+      <div class="location">
+        <span class="path">~/projects/memory-guard</span
+        ><span class="location-note">Jesse Zeng / portfolio</span>
+      </div>
+      <main id="main">
+        <header class="page-head">
+          <a class="back" href="/projects/">All projects</a>
+          <p class="meta">03 / Independent project</p>
+          <h1>Memory Applicability Guard</h1>
+          <p class="summary">
+            A Python helper that checks whether a stored memory should affect
+            what an agent does next. It is a research prototype with
+            deterministic tests, not a production safety system.
+          </p>
+        </header>
+        <nav class="section-tabs" aria-label="Case study sections">
+          <a href="#overview" data-panel-link="overview">Overview</a
+          ><a href="#engineering" data-panel-link="engineering">Engineering</a
+          ><a href="#results" data-panel-link="results">Results & evidence</a>
+        </nav>
+        <section class="page-panel" id="overview" aria-label="Overview">
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Independent project</dd>
+            </div>
+            <div>
+              <dt>When</dt>
+              <dd>May 2026–present</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Python, structured JSON, unit tests</dd>
+            </div>
+            <div>
+              <dt>License</dt>
+              <dd>MIT</dd>
+            </div>
+          </dl>
+          <div class="brief brief-single">
+            <div class="brief-main">
+              <h2>What I did</h2>
+              <ul>
+                <li>
+                  Built a deterministic helper that separates the recommended
+                  <code>memory_action</code> from a
+                  <code>guard_verdict</code> on the proposed way of relying on
+                  memory.
+                </li>
+                <li>
+                  Packaged the helper as an agent skill with unit tests and
+                  full-output checks for three synthetic examples.
+                </li>
+              </ul>
 
-    <article class="prose">
-      <h2>The problem</h2>
-      <p>An agent with memory will retrieve old notes that look relevant. Relevant isn't the same as applicable. The user may have moved since they mentioned their local pool, withdrawn a permission they once gave, or stated a preference for one setting that doesn't carry over to another. Retrieval finds the memory; it doesn't say whether to rely on it.</p>
-
-      <h2>USE, IGNORE, ASK</h2>
-      <p>The tool answers one narrow question: how should the agent treat this particular memory?</p>
-      <dl class="terms">
-        <dt>USE</dt>
-        <dd>The memory applies directly (or the user explicitly said it carries over), permission is in place, and the evidence is sufficient.</dd>
-        <dt>IGNORE</dt>
-        <dd>Don't rely on it. The permission was revoked, newer information supersedes it, nothing links it to the current task, or a current fact has to be checked externally first. It's also the result when there's an action that works whichever way the uncertainty resolves.</dd>
-        <dt>ASK</dt>
-        <dd>Only the user can resolve the question, their answer would change what happens, and there's no action that works either way.</dd>
-      </dl>
-      <p>Uncertainty doesn't automatically mean ASK. A remembered train delay should be checked against current data, not turned into a question for the user.</p>
-
-      <h2>Memory decision vs. task decision</h2>
-      <p>This is the distinction the project is built around. The memory action (<code>USE</code>, <code>IGNORE</code>, <code>ASK</code>) is separate from whatever the agent is trying to do. The tool never approves or runs the task. Its verdict only says what to do about the memory:</p>
-      <ul>
-        <li><code>PASS</code>: the agent's proposed memory action matches the rules.</li>
-        <li><code>REVISE</code>: change how the memory is used; nothing else.</li>
-        <li><code>ASK_USER</code>, <code>VERIFY_EXTERNAL</code>, <code>ESCALATE</code>: the memory question has to go to the user, to a current external source, or to a human reviewer. Anything marked high-risk is escalated.</li>
-      </ul>
-      <p>For example, if the agent proposes to <code>USE</code> "trains at the downtown pool" and the user has since said they moved, the result is <code>REVISE</code> to <code>IGNORE</code>, with the move statement recorded as the decisive evidence.</p>
-
-      <h2>What I built</h2>
-      <p>A deterministic helper that takes one JSON object (the task, the memory, permission status, how the memory relates to the task, evidence status, risk level, and the evidence items) and applies a fixed order of rules. Revoked permission is checked first, then high risk, then whether external facts are needed, and so on. The output includes the memory action, the reason code, the decisive evidence, and a next step. It doesn't call a model, browse, or read memory stores; it only reviews what it's given.</p>
-      <p>It has 12 standard-library unit tests and an offline release verifier, and it's packaged as an installable agent skill.</p>
-
-      <h2>The experiment</h2>
-      <p>The related experiment, frozen at v0.7, compared a direct baseline (A0) with an evidence-first condition (M1) on 128 synthetic cases.</p>
-      <ul>
-        <li>Both scored 110/128 on memory-action correctness.</li>
-        <li>The evidence-first condition fixed 6 cases and broke 6 others, for a net change of zero.</li>
-        <li>Both recalled 60% of the cases that should have been ASK.</li>
-      </ul>
-      <p>The pre-set stopping rule said to stop at v0.7, so I did. The tool doesn't claim to improve accuracy. What it does offer is a readable record of why a memory was used or set aside.</p>
-      <!-- TODO(confirm): what A0 / M1 were in plain terms (prompting conditions on one model?), so the comparison can be described more concretely. -->
-
-      <h2>Limits</h2>
-      <p>The results come from one model setting and synthetic, expert-reviewed cases, not real users. The helper relies on structured labels that someone has to supply correctly. It is not production validated and shouldn't be used to approve medical, legal, financial, employment, or other high-stakes decisions.</p>
-      <p><a href="https://github.com/Jesse-Zeng423/memory-applicability-guard" target="_blank" rel="noopener noreferrer">Repository on GitHub</a></p>
-    </article>
-
-    <nav class="next" aria-label="Next page"><span class="meta">Next</span><a href="/about/">About</a></nav>
-  </main>
-  <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
-</body>
+              <ul class="links">
+                <li>
+                  <a
+                    href="https://github.com/Jesse-Zeng423/memory-applicability-guard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Repository on GitHub</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/Jesse-Zeng423/memory-applicability-guard/blob/main/memory-applicability-guard/references/research-boundaries.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Research boundary and results</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/Jesse-Zeng423/memory-applicability-guard/tree/main/examples"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Runnable examples</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section
+          class="page-panel prose"
+          id="engineering"
+          aria-label="Engineering"
+        >
+          <details class="topic-details" name="memory-guard-engineering" open>
+            <summary><h2>The problem</h2></summary>
+            <div class="topic-content">
+              <p>
+                Retrieval finds memories that look relevant. It doesn't tell the
+                agent whether they still apply. A note saying the user allowed
+                an action may have been revoked since, a fact may be out of
+                date, and a preference may belong to a different context.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-engineering">
+            <summary><h2>Three verdicts</h2></summary>
+            <div class="topic-content">
+              <p>
+                The helper takes structured input about the memory and the
+                current request. Its <code>memory_action</code> field is one of
+                three values:
+              </p>
+              <dl class="terms">
+                <div>
+                  <dt><code>USE</code></dt>
+                  <dd>
+                    The memory applies to the current request and can inform the
+                    answer or action.
+                  </dd>
+                </div>
+                <div>
+                  <dt><code>IGNORE</code></dt>
+                  <dd>
+                    The memory should not influence this request: it has been
+                    superseded, revoked, or belongs to another context.
+                  </dd>
+                </div>
+                <div>
+                  <dt><code>ASK</code></dt>
+                  <dd>
+                    There isn't enough evidence to decide, so the agent should
+                    clarify with the user before relying on it.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-engineering">
+            <summary><h2>Memory decision and review are separate</h2></summary>
+            <div class="topic-content">
+              <p>
+                <code>memory_action</code> recommends whether to use, ignore or
+                ask about a memory. <code>guard_verdict</code> checks the
+                proposed reliance against that recommendation or calls for
+                clarification, external verification or human review. Its values
+                are <code>PASS</code>, <code>REVISE</code>,
+                <code>ASK_USER</code>, <code>VERIFY_EXTERNAL</code> and
+                <code>ESCALATE</code>. A <code>PASS</code> does not approve the
+                underlying task.
+              </p>
+              <p>
+                The output also includes <code>memory_state</code>,
+                <code>resolution_source</code>, <code>decisive_evidence</code>,
+                <code>reason_code</code>, <code>next_step</code> and
+                <code>boundary</code>. The helper returns a review record and
+                does not execute any action.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-engineering">
+            <summary>
+              <h2>Validation without pretending to verify truth</h2>
+            </summary>
+            <div class="topic-content">
+              <p>
+                The portable skill runs with Python 3.10+ and no third-party
+                dependencies, network access or credentials. It validates
+                structured input and checks consistency between the evidence
+                kind and the proposed decision.
+              </p>
+              <p>
+                Contradictory inputs or unsupported classifications produce a
+                structured error and non-zero exit rather than a
+                plausible-looking decision. Full-output examples cover a
+                superseded preference, an explicit transfer of context and an
+                uncertain case with a robust alternative.
+              </p>
+              <p>
+                The helper cannot establish whether a supplied fact is true,
+                current or genuinely supported by a prose quotation. Those
+                remain caller and reviewer responsibilities.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-engineering">
+            <summary><h2>Output fields</h2></summary>
+            <div class="topic-content">
+              <figure class="brief-aside">
+                <pre
+                  class="schema"
+                  tabindex="0"
+                  aria-label="Output fields"
+                ><code><span class="k">memory_action</span>   USE | IGNORE | ASK
+<span class="k">guard_verdict</span>   PASS | REVISE | ASK_USER
+                | VERIFY_EXTERNAL | ESCALATE
+<span class="k">memory_state</span>
+<span class="k">resolution_source</span>
+<span class="k">decisive_evidence</span>
+<span class="k">reason_code</span>
+<span class="k">next_step</span>
+<span class="k">boundary</span></code></pre>
+                <figcaption>
+                  Fields in the helper's output, from
+                  <code>scripts/guard_decision.py</code>. The output is a
+                  recommendation and review record. The helper does not carry
+                  out the task.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+        </section>
+        <section
+          class="page-panel prose"
+          id="results"
+          aria-label="Results and evidence"
+        >
+          <details class="topic-details" name="memory-guard-results" open>
+            <summary><h2>Result and status</h2></summary>
+            <div class="topic-content">
+              <p>
+                In a matched v0.7 experiment, direct baseline A0 and
+                evidence-first M1 each got <code>memory_action</code> right in
+                110 of 128 held-out synthetic cases. M1 did not improve
+                accuracy. This historical research result does not evaluate the
+                packaged helper; the project remains a research prototype.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-results">
+            <summary><h2>Reading the matched result</h2></summary>
+            <div class="topic-content">
+              <figure class="diagram">
+                <dl class="result-comparison">
+                  <div>
+                    <dt>A0 / direct baseline</dt>
+                    <dd>110 / 128</dd>
+                  </div>
+                  <div>
+                    <dt>M1 / evidence first</dt>
+                    <dd>110 / 128</dd>
+                  </div>
+                </dl>
+                <figcaption>
+                  Historical v0.7 synthetic cohort: six errors fixed, six new
+                  errors introduced, zero net accuracy gain. Equal totals do not
+                  mean identical per-case decisions.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-results">
+            <summary>
+              <h2>October development pilot: review the actual answer</h2>
+            </summary>
+            <div class="topic-content">
+              <p>
+                The next development pilot moved from checking decision labels
+                to reviewing the answer a user actually receives. Eight
+                owner-reviewed synthetic scenarios were run under three
+                conditions: no extra memory guidance, a three-sentence baseline
+                and a short skill draft. Each condition received identical task,
+                context and memory text; condition order rotated across
+                scenarios.
+              </p>
+              <p>
+                All 24 generations completed. The review interface shuffles the
+                responses and hides condition labels; a reviewer judges whether
+                the response is usable and whether clarification was necessary.
+                Drafts can be exported and imported, with a source fingerprint
+                preventing a draft from a different response set being applied.
+              </p>
+              <figure class="interface-shot">
+                <img
+                  src="/assets/memory-blind-review.png"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  alt="Memory Guard blind review interface with a synthetic interview-preparation scenario, actual response and unanswered human-review fields."
+                />
+                <figcaption>
+                  Fresh local screenshot, October 3, 2026. Synthetic development
+                  data; all ratings shown are unanswered. Generation is
+                  complete, human response-quality review is pending.
+                </figcaption>
+              </figure>
+              <p>
+                This is a development pilot, not held-out proof of improvement
+                or real-host skill activation. No winning condition has been
+                established.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-results">
+            <summary><h2>What the experiment changed</h2></summary>
+            <div class="topic-content">
+              <p>
+                A0 made a direct memory-use decision. M1 committed to decisive
+                evidence before making the same decision. They used the same
+                model setting and 128 new, individually reviewed held-out cases.
+                M1 fixed six A0 errors and introduced six new ones; the paired
+                net change was zero. The frozen decision was to stop iterating
+                on this mechanism using the same cohort.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-results">
+            <summary><h2>How to inspect it</h2></summary>
+            <div class="topic-content">
+              <p>
+                The public repository includes the deterministic helper, unit
+                tests and an example runner. Three synthetic cases show a
+                superseded preference, an explicit transfer into a new context
+                and an uncertain memory with a robust alternative. Each has a
+                checked expected output.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="memory-guard-results">
+            <summary><h2>Limits</h2></summary>
+            <div class="topic-content">
+              <p>
+                The public examples are synthetic. The helper has not been
+                evaluated inside a deployed agent or validated as a production
+                safety system. I'm still working on the broader problem.
+              </p>
+            </div>
+          </details>
+        </section>
+        <nav class="case-return" aria-label="Project navigation">
+          <a class="action" href="/projects/">← All projects</a>
+        </nav>
+      </main>
+      <footer class="footer">
+        <a class="home-link" href="/">[ Home ]</a
+        ><span>© 2026 Jesse Zeng</span>
+        <div class="footer-links">
+          <a href="mailto:jesse.zeng.work@gmail.com">Email</a
+          ><a
+            href="https://github.com/Jesse-Zeng423"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          ><a
+            href="https://www.linkedin.com/in/jesse-zeng"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

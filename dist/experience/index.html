@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17191a" />
+    <meta
+      name="description"
+      content="Experience — Jesse Zeng, University of Toronto computer science student. Software engineering, AI agents and connected devices."
+    />
+    <title>Experience | Jesse Zeng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/terminal.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="terminal-window">
+      <header class="site-header">
+        <a class="site-name" href="/" aria-label="Jesse Zeng, home"
+          ><span class="host">jesse</span>@portfolio<span
+            class="prompt"
+            aria-hidden="true"
+            >$</span
+          ></a
+        >
+        <nav class="nav" aria-label="Main">
+          <a href="/">Home</a>
+          <a href="/projects/">Projects</a>
+          <a href="/experience/" aria-current="page">Experience</a>
+          <a href="/resume/">Résumé</a>
+          <a href="/contact/">Contact</a>
+          <label class="theme-picker" title="Theme color">
+            <span class="sr-only">Theme color</span>
+            <input
+              type="color"
+              value="#b0d8be"
+              aria-label="Theme color"
+              disabled
+            />
+          </label>
+        </nav>
+      </header>
+      <div class="location">
+        <span class="path">~/experience</span
+        ><span class="location-note">Jesse Zeng / portfolio</span>
+      </div>
+      <main id="main">
+        <header class="page-head">
+          <p class="meta">Work & learning</p>
+          <h1>Experience</h1>
+          <p class="summary">
+            Engineering in Guangzhou, computer science in Toronto, and a few
+            classrooms along the way.
+          </p>
+        </header>
+        <div class="experience-list">
+          <details>
+            <summary>
+              <span class="meta">Jul–Aug 2026 / Guangzhou</span
+              ><span class="experience-title"
+                >AI & Cloud Solutions Engineering Intern</span
+              ><span class="experience-org"
+                >Aspire Digital Technology, Guangzhou Branch</span
+              >
+            </summary>
+            <div class="exp-content">
+              <p>
+                At Aspire Digital Technology (Shenzhen), Guangzhou Branch, I led
+                the Rokid exhibition-guide project and worked across agent
+                evaluation and user-facing features.
+              </p>
+              <ul>
+                <li>
+                  Integrated the Android camera pipeline with a Python
+                  recognition service and helped keep exhibit context current.
+                </li>
+                <li>
+                  Evaluated AI agents on search, tool use and scheduled tasks,
+                  documenting failures I could reproduce.
+                </li>
+                <li>
+                  Worked on task feedback and exception alerts across web and
+                  mini-program features.
+                </li>
+              </ul>
+              <h2>Device integration & debugging</h2>
+              <p>
+                I worked with He Yutong on recognition, knowledge-based answers,
+                HUD subtitles and speech. My work crossed BLE initialization,
+                Socket authentication, MediaCodec frame decoding, Kotlin,
+                FastAPI and Dify. One connection bug required tracing
+                asynchronous callbacks and state flags across the device
+                handshake rather than changing the recognition model.
+              </p>
+              <h2>Release discipline</h2>
+              <p>
+                After recognition and introduction were accepted, we preserved
+                that baseline while extending dialogue. I kept software
+                regression results separate from hardware demonstrations and the
+                manual checks still outstanding at handoff. When model-service
+                failures leaked operational text into subtitles, I separated
+                fallback logs from visitor-facing answers.
+              </p>
+              <h2>Research & communication</h2>
+              <p>
+                Alongside the device project, I investigated whether an agent
+                should use, ignore or ask about a stored memory. I prepared a
+                talk on agent-memory reliability and practised explaining
+                evidence, context and authorization boundaries to an audience
+                beyond the implementation team.
+              </p>
+              <a class="action" href="/work/rokid/"
+                >Explore the Rokid case study ↗</a
+              >
+            </div>
+          </details>
+          <details>
+            <summary>
+              <span class="meta">Expected Apr 2029 / Toronto</span
+              ><span class="experience-title"
+                >Honours BSc, Computer Science</span
+              ><span class="experience-org"
+                >University of Toronto, St. George</span
+              >
+            </summary>
+            <div class="exp-content">
+              <p>
+                I'm completing an Honours BSc in Computer Science, with an
+                expected graduation in April 2029. My project work spans browser
+                agents, connected devices and memory-use research.
+              </p>
+              <h2>What I'm studying</h2>
+              <p>
+                Current coursework includes Java software design and
+                object-oriented programming, proofs and computational reasoning,
+                multivariable calculus, and probability. Linear algebra provides
+                another foundation for my machine-learning work. These are
+                studies in progress, not a claim that I have completed an AI or
+                systems specialization.
+              </p>
+              <h2>Work outside class</h2>
+              <p>
+                AllAbout Campus turns a familiar student problem—finding the
+                relevant course rule—into a browser-agent and evidence-routing
+                project. My independent Memory Guard work asks a different
+                question: when should previously stored information change
+                today's recommendation?
+              </p>
+              <div class="actions">
+                <a class="action" href="/work/allabout/">AllAbout Campus ↗</a
+                ><a class="action" href="/work/memory-guard/"
+                  >Memory Guard ↗</a
+                >
+              </div>
+              <a class="action" href="/projects/">Explore projects ↗</a>
+            </div>
+          </details>
+          <details>
+            <summary>
+              <span class="meta">Sep–Dec 2024 / Xinshao, China</span
+              ><span class="experience-title">Volunteer AI teaching</span
+              ><span class="experience-org">Rural students in Xinshao</span>
+            </summary>
+            <div class="exp-content">
+              <p>
+                I taught what a computer is, classification and simple neural
+                networks. When the classroom had no computer for the slides I'd
+                brought, I explained machine learning with a Peppa Pig robot
+                story instead.
+              </p>
+              <p>
+                That experience still shapes how I explain technical work: the
+                explanation has to fit the room.
+              </p>
+              <h2>Teaching without the planned tools</h2>
+              <p>
+                The lesson started with what a computer is, then moved to
+                classification and simple neural networks. Without a computer to
+                show the slides, I used the robot story to make the ideas
+                accessible. The concrete challenge was translating unfamiliar
+                technical language into something students could follow with the
+                resources in the classroom.
+              </p>
+              <figure class="diagram">
+                <ol class="diagram-flow" aria-label="Lesson topics">
+                  <li>
+                    <strong>01 / Computers</strong
+                    ><span>Start with what the machine does.</span>
+                  </li>
+                  <li>
+                    <strong>02 / Classification</strong
+                    ><span>Introduce how examples can be grouped.</span>
+                  </li>
+                  <li>
+                    <strong>03 / Neural networks</strong
+                    ><span>Explain the idea through a familiar story.</span>
+                  </li>
+                </ol>
+                <figcaption>
+                  A topic map of the lesson, not a photograph or a measured
+                  learning outcome.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+          <details>
+            <summary>
+              <span class="meta">2024 / Summer program</span
+              ><span class="experience-title"
+                >Data analysis & machine learning</span
+              ><span class="experience-org">Johns Hopkins summer program</span>
+            </summary>
+            <div class="exp-content">
+              <p>
+                Before university, I analysed obesity risk factors using Python
+                and XGBoost in a Johns Hopkins summer program.
+              </p>
+              <h2>Project focus</h2>
+              <p>
+                The project studied obesity risk factors through a Python-based
+                machine-learning analysis using XGBoost. It was educational data
+                analysis, not a clinical diagnostic tool or evidence of a causal
+                relationship.
+              </p>
+              <h2>Place in my work</h2>
+              <p>
+                This is the earliest machine-learning project in this portfolio.
+                The later cases show the shift toward building complete systems:
+                browser evidence collection, connected-device interactions and
+                explicit review of uncertain information.
+              </p>
+            </div>
+          </details>
+        </div>
+      </main>
+      <footer class="footer">
+        <a class="home-link" href="/">[ Home ]</a
+        ><span>© 2026 Jesse Zeng</span>
+        <div class="footer-links">
+          <a href="mailto:jesse.zeng.work@gmail.com">Email</a
+          ><a
+            href="https://github.com/Jesse-Zeng423"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          ><a
+            href="https://www.linkedin.com/in/jesse-zeng"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

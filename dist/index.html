@@ -1,80 +1,126 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Jesse Zeng, computer science student at the University of Toronto. Projects: an AR exhibition guide, a campus research demo, and a memory-review prototype for agents.">
-  <title>Jesse Zeng</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header wrap">
-    <a class="site-name" href="/">Jesse Zeng</a>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a>
-    </nav>
-  </header>
-  <main id="main">
-    <section class="intro wrap">
-      <h1>Jesse Zeng</h1>
-      <p>I study computer science at the University of Toronto (HBSc, expected 2029). In summer 2026 I interned at Aspire Digital Technology in Guangzhou, where I led the team building an exhibition guide for Rokid smart glasses.</p>
-      <p>I'm looking for software engineering and applied AI internships.</p>
-      <div class="links">
-        <a href="mailto:jesse.zeng.work@gmail.com">jesse.zeng.work@gmail.com</a>
-        <a href="/Jesse_Zeng_Resume.pdf">Résumé (PDF)</a>
-        <a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17191a" />
+    <meta
+      name="description"
+      content="Jesse Zeng — Jesse Zeng, University of Toronto computer science student. Software engineering, AI agents and connected devices."
+    />
+    <title>Jesse Zeng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/terminal.js" defer></script>
+  </head>
+  <body class="landing">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="terminal-window">
+      <header class="site-header">
+        <a class="site-name" href="/" aria-label="Jesse Zeng, home"
+          ><span class="host">jesse</span>@portfolio<span
+            class="prompt"
+            aria-hidden="true"
+            >$</span
+          ></a
+        >
+        <nav class="nav" aria-label="Main">
+          <a href="/" aria-current="page">Home</a>
+          <a href="/projects/">Projects</a>
+          <a href="/experience/">Experience</a>
+          <a href="/resume/">Résumé</a>
+          <a href="/contact/">Contact</a>
+          <label class="theme-picker" title="Theme color">
+            <span class="sr-only">Theme color</span>
+            <input
+              type="color"
+              value="#b0d8be"
+              aria-label="Theme color"
+              disabled
+            />
+          </label>
+        </nav>
+      </header>
+      <div class="location">
+        <span class="path">~</span
+        ><span class="location-note">Jesse Zeng / portfolio</span>
       </div>
-    </section>
-
-    <section class="section wrap" id="work" aria-labelledby="work-title">
-      <h2 id="work-title">Work</h2>
-      <article class="project">
-        <p class="meta">01 · Internship<br>Jul–Aug 2026</p>
-        <div>
-          <h3><a href="/work/rokid/">Rokid AR Guide</a></h3>
-          <p>A museum guide for smart glasses: look at an exhibit, hear a reviewed introduction, then ask follow-up questions about that exhibit.</p>
-          <p>I led the project team, connected the Android camera pipeline to the Python recognition service, and kept reviewed introductions separate from AI-generated answers.</p>
+      <main id="main">
+        <section class="home-page">
+          <p class="meta prompt-line">
+            <span aria-hidden="true">$</span> whoami
+          </p>
+          <h1>Jesse Zeng<span class="cursor" aria-hidden="true"></span></h1>
+          <p class="home-subtitle">Computer science @ University of Toronto</p>
+          <div class="home-about">
+            <p>
+              I build software for AI agents and connected devices. During my
+              internship at Aspire Digital Technology, I led a smart-glasses
+              exhibition guide and evaluated agents on search, tool use and
+              scheduled tasks.
+            </p>
+            <p>
+              I've also taught AI basics in Xinshao, China, and studied data
+              analysis in a Johns Hopkins summer program. Away from the
+              keyboard: bass, mostly rock; cooking; and F1 sim racing.
+            </p>
+          </div>
+          <nav class="launch-grid" aria-label="Explore portfolio">
+            <a href="/projects/"
+              ><span class="launch-title"
+                >Projects <span aria-hidden="true">↗</span></span
+              ><span class="launch-description"
+                >AR guides, web agents & memory research</span
+              ></a
+            >
+            <a href="/experience/"
+              ><span class="launch-title"
+                >Experience <span aria-hidden="true">↗</span></span
+              ><span class="launch-description"
+                >Internship, teaching & education</span
+              ></a
+            >
+            <a href="/resume/"
+              ><span class="launch-title"
+                >Résumé <span aria-hidden="true">↗</span></span
+              ><span class="launch-description"
+                >Read or download the PDF</span
+              ></a
+            >
+            <a href="/contact/"
+              ><span class="launch-title"
+                >Contact <span aria-hidden="true">↗</span></span
+              ><span class="launch-description"
+                >Email, GitHub & LinkedIn</span
+              ></a
+            >
+          </nav>
+          <a class="text-link" href="/about/">More about me & skills</a>
+        </section>
+      </main>
+      <footer class="footer">
+        <a class="home-link" href="/">[ Home ]</a
+        ><span>© 2026 Jesse Zeng</span>
+        <div class="footer-links">
+          <a href="mailto:jesse.zeng.work@gmail.com">Email</a
+          ><a
+            href="https://github.com/Jesse-Zeng423"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          ><a
+            href="https://www.linkedin.com/in/jesse-zeng"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
         </div>
-      </article>
-      <article class="project">
-        <p class="meta">02 · Hackathon<br>Sep 2026</p>
-        <div>
-          <h3><a href="/work/allabout/">AllAbout Campus</a></h3>
-          <p>A hackathon demo that answers U of T and Waterloo course questions with citations, while a browser panel shows the pages being read.</p>
-          <p>I led the team, joined the React front end, Fastify server, and Steel browser workflow, and built source routing, evidence extraction, and the coverage receipt.</p>
-        </div>
-      </article>
-      <article class="project">
-        <p class="meta">03 · Independent<br>May–Aug 2026</p>
-        <div>
-          <h3><a href="/work/memory-guard/">Memory Applicability Guard</a></h3>
-          <p>A small Python tool that checks whether an agent should use, ignore, or ask about a stored memory before relying on it.</p>
-          <p>I wrote the decision rules, tests, and agent-skill packaging. The related experiment tied its baseline at 110/128, so I scoped the tool as a review aid rather than a safety system.</p>
-        </div>
-      </article>
-      <article class="project">
-        <p class="meta">04 · Independent<br>Apr 2026</p>
-        <div class="minor">
-          <h3><a href="https://flow-list-kappa.vercel.app" target="_blank" rel="noopener noreferrer">FlowList</a></h3>
-          <p>A Next.js app that imports a public YouTube playlist or a manual track list and sketches mood chapters and transitions from track metadata.</p>
-        </div>
-      </article>
-    </section>
-
-    <section class="section wrap" aria-labelledby="background-title">
-      <h2 id="background-title">Background</h2>
-      <ul class="record">
-        <li><span class="meta">2025–2029</span><div><strong>University of Toronto, St. George</strong><p>Honours Bachelor of Science, Computer Science (expected April 2029).</p></div></li>
-        <li><span class="meta">Jul–Aug 2026</span><div><strong>AI &amp; Cloud Solutions Engineering Intern, Aspire Digital Technology</strong><p>Project lead on the Rokid AR guide. Also evaluated AI agents on search, tool use, and scheduled tasks, documented reproducible failures, and worked on task feedback and error alerts in front-end and mini-program features.</p></div></li>
-      </ul>
-    </section>
-  </main>
-  <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
-</body>
+      </footer>
+    </div>
+  </body>
 </html>

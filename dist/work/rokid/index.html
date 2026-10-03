@@ -1,59 +1,428 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Rokid AR Guide: an exhibition guide for smart glasses, built during Jesse Zeng's 2026 internship.">
-  <title>Rokid AR Guide — Jesse Zeng</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header wrap"><a class="site-name" href="/">Jesse Zeng</a><nav class="nav" aria-label="Main navigation"><a href="/#work">Work</a><a href="/about/">About</a><a href="/Jesse_Zeng_Resume.pdf">Résumé</a></nav></header>
-  <main id="main" class="wrap">
-    <header class="page-header">
-      <a class="back" href="/#work">← Work</a>
-      <p class="meta">01 · Internship project</p>
-      <h1>Rokid AR Guide</h1>
-      <p class="summary">An exhibition guide for Rokid smart glasses. A visitor looks at an exhibit, hears a reviewed introduction, and can ask follow-up questions while that exhibit stays the topic.</p>
-      <dl class="facts">
-        <div><dt>Role</dt><dd>Project team lead</dd></div>
-        <div><dt>When</dt><dd>Jul–Aug 2026</dd></div>
-        <div><dt>Where</dt><dd>Aspire Digital Technology, Guangzhou</dd></div>
-        <div><dt>Stack</dt><dd>Android, Kotlin, Python</dd></div>
-      </dl>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17191a" />
+    <meta
+      name="description"
+      content="Rokid AR Guide — Jesse Zeng, University of Toronto computer science student. Software engineering, AI agents and connected devices."
+    />
+    <title>Rokid AR Guide | Jesse Zeng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/terminal.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="terminal-window">
+      <header class="site-header">
+        <a class="site-name" href="/" aria-label="Jesse Zeng, home"
+          ><span class="host">jesse</span>@portfolio<span
+            class="prompt"
+            aria-hidden="true"
+            >$</span
+          ></a
+        >
+        <nav class="nav" aria-label="Main">
+          <a href="/">Home</a>
+          <a href="/projects/" aria-current="page">Projects</a>
+          <a href="/experience/">Experience</a>
+          <a href="/resume/">Résumé</a>
+          <a href="/contact/">Contact</a>
+          <label class="theme-picker" title="Theme color">
+            <span class="sr-only">Theme color</span>
+            <input
+              type="color"
+              value="#b0d8be"
+              aria-label="Theme color"
+              disabled
+            />
+          </label>
+        </nav>
+      </header>
+      <div class="location">
+        <span class="path">~/projects/rokid</span
+        ><span class="location-note">Jesse Zeng / portfolio</span>
+      </div>
+      <main id="main">
+        <header class="page-head">
+          <a class="back" href="/projects/">All projects</a>
+          <p class="meta">01 / Internship project</p>
+          <h1>Rokid AR Guide</h1>
+          <p class="summary">
+            An exhibition guide for Rokid smart glasses, built during my
+            internship at Aspire Digital Technology. A visitor looks at an
+            exhibit, hears a reviewed introduction, and can then ask questions
+            about it.
+          </p>
+        </header>
+        <nav class="section-tabs" aria-label="Case study sections">
+          <a href="#overview" data-panel-link="overview">Overview</a
+          ><a href="#engineering" data-panel-link="engineering">Engineering</a
+          ><a href="#results" data-panel-link="results">Results & evidence</a>
+        </nav>
+        <section class="page-panel" id="overview" aria-label="Overview">
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Project team lead</dd>
+            </div>
+            <div>
+              <dt>When</dt>
+              <dd>Jul–Aug 2026</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Android, MediaCodec, Python</dd>
+            </div>
+            <div>
+              <dt>Hardware</dt>
+              <dd>Rokid RV101, NanoPC T6</dd>
+            </div>
+          </dl>
+          <div class="brief brief-single">
+            <div class="brief-main">
+              <h2>What I did</h2>
+              <ul>
+                <li>
+                  Led the project team and integrated the Android camera
+                  pipeline with the Python recognition service.
+                </li>
+                <li>
+                  Prioritized recent frames and helped keep exhibit context,
+                  reviewed introductions and generated follow-up answers
+                  separate.
+                </li>
+              </ul>
 
-    <article class="prose">
-      <h2>The visitor's situation</h2>
-      <p>Someone walking through an exhibition wears the glasses and stops in front of an object. The guide should work out which exhibit they're facing, give a short introduction by text and speech, and let them ask a question without losing track of the object. When they move to the next exhibit, the guide should move with them.</p>
-
-      <h2>Camera to server</h2>
-      <p>An Android camera pipeline captures frames and hands them to a Python service that recognizes the exhibit. I integrated the two. The main decision was to prioritize fresh frames: when the visitor turns their head, the frame that matters is the latest one, not an older frame still waiting to be processed. Giving newer frames priority made recognition follow the current view more closely.</p>
-      <!-- TODO(confirm): whether the Android app ran on the glasses or a paired phone; transport between app and service (HTTP, WebSocket, etc.) and how stale frames were handled (dropped vs. deprioritized). Add only if you want that detail public. -->
-
-      <h2>Exhibit context</h2>
-      <p>Once an exhibit is recognized, it becomes the active context. Its reviewed material supplies the introduction and is also the knowledge base for follow-up answers, so a question like "when was this made?" is answered about this object and not a neighbouring one. Recognizing a different exhibit replaces the context.</p>
-
-      <h2>Reviewed introductions vs. AI answers</h2>
-      <p>The introduction and the follow-up answers come from different places, and we kept them separate on purpose.</p>
-      <ul>
-        <li><strong>Introduction:</strong> prepared and reviewed ahead of time, then played as written.</li>
-        <li><strong>Follow-up answers:</strong> generated by a language model at the moment of the question and grounded in that exhibit's reviewed material. They can still be wrong, which is why they aren't mixed into the reviewed introduction.</li>
-      </ul>
-      <p>I also trimmed the on-glasses text and speech so they're short enough to follow while standing in a gallery.</p>
-
-      <h2>What acceptance covered</h2>
-      <p>Three flows passed user acceptance and regression checks during the internship: exhibit recognition, switching between exhibits, and introduction playback.</p>
-      <p>That is the extent of what I can claim. I don't have recognition accuracy, latency figures, or results across different Rokid models, so this page doesn't give any.</p>
-      <!-- TODO(confirm): whether follow-up Q&A was part of acceptance testing. -->
-      <p class="note">This was internship work, so there are no screenshots or source code here. I'm happy to walk through it in conversation.</p>
-      <p><a href="mailto:jesse.zeng.work@gmail.com?subject=Rokid%20AR%20Guide">Email me about this project</a></p>
-    </article>
-
-    <nav class="next" aria-label="Next project"><span class="meta">Next</span><a href="/work/allabout/">AllAbout Campus</a></nav>
-  </main>
-  <footer class="footer wrap"><span>© 2026 Jesse Zeng</span><div class="footer-links"><a href="mailto:jesse.zeng.work@gmail.com">Email</a><a href="https://github.com/Jesse-Zeng423" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jesse-zeng" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></footer>
-</body>
+              <ul class="links">
+                <li>
+                  <a
+                    href="mailto:jesse.zeng.work@gmail.com?subject=Rokid%20AR%20Guide"
+                    >Email me about this project</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section
+          class="page-panel prose"
+          id="engineering"
+          aria-label="Engineering"
+        >
+          <details class="topic-details" name="rokid-engineering" open>
+            <summary><h2>The situation</h2></summary>
+            <div class="topic-content">
+              <p>
+                A visitor walks through an exhibition wearing the glasses. The
+                guide has to work out which exhibit is in front of them, give a
+                short introduction, and answer questions without drifting to a
+                different exhibit. Text and speech have to stay short enough to
+                follow while standing in front of the object.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-engineering">
+            <summary><h2>From glasses to recognition</h2></summary>
+            <div class="topic-content">
+              <p>
+                The RV101 glasses stream video over Rokid's CXR-M link to an
+                Android app running on a NanoPC T6 board. The Android side
+                decodes the stream with MediaCodec, picks a recent frame instead
+                of working through a backlog, and sends it to the Python backend
+                as a multipart image request. Recognition happens in the
+                backend.
+              </p>
+              <p>
+                I worked on this Android-to-Python integration. Choosing newer
+                frames keeps recognition tied to what the visitor is looking at
+                now, not to where they were looking a moment ago.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-engineering">
+            <summary><h2>Keeping the exhibit as context</h2></summary>
+            <div class="topic-content">
+              <p>
+                Once an exhibit is recognized, it becomes the context for the
+                conversation. Answers use reviewed knowledge about that exhibit.
+                A late response to the previous exhibit is a real failure mode
+                when the visitor turns away: the guide clears stale display
+                content and uses context generation tokens to discard the old
+                answer when it arrives. Newer decoded frames take priority for
+                the same reason.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-engineering">
+            <summary>
+              <h2>Reviewed introductions and generated answers</h2>
+            </summary>
+            <div class="topic-content">
+              <p>
+                The system handles two kinds of content separately. Each
+                exhibit's introduction comes from reviewed material. Follow-up
+                questions get generated answers, grounded in that exhibit's
+                reviewed knowledge. The separation is in how the system stores
+                and routes content.
+              </p>
+              <p>
+                I also adjusted how text and speech are presented on the glasses
+                so visitors could follow them.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-engineering">
+            <summary>
+              <h2>Debugging a connection that stopped halfway</h2>
+            </summary>
+            <div class="topic-content">
+              <p>
+                Bluetooth initialization succeeded, but the Socket connection
+                never started. I traced the connection state and asynchronous
+                callbacks: a state flag was blocking the next stage before the
+                callback could advance it. I revised the state transitions,
+                callback handling and exception paths rather than treating
+                Bluetooth success as a completed connection.
+              </p>
+              <figure class="diagram">
+                <ol class="diagram-flow" aria-label="Device connection stages">
+                  <li>
+                    <strong>01 / Discover</strong
+                    ><span>Scan the glasses and initialize BLE.</span>
+                  </li>
+                  <li>
+                    <strong>02 / Authenticate</strong
+                    ><span
+                      >Receive connection information, then authenticate the
+                      Socket.</span
+                    >
+                  </li>
+                  <li>
+                    <strong>03 / Recognize</strong
+                    ><span
+                      >Receive video, decode a recent frame and send the
+                      recognition request.</span
+                    >
+                  </li>
+                </ol>
+                <figcaption>
+                  Connection sequence reconstructed from my internship summary,
+                  not an internal product screenshot.
+                </figcaption>
+              </figure>
+              <p>
+                The sampling rate was raised from approximately one to two
+                frames per second while retaining one request in flight,
+                latest-frame selection and consecutive-frame confirmation. This
+                bounds the queue without claiming measured end-to-end latency.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-engineering">
+            <summary><h2>A separate dialogue phase</h2></summary>
+            <div class="topic-content">
+              <p>
+                After the recognition and introduction flow was accepted, we
+                froze that baseline and developed free dialogue separately. The
+                guide finishes the reviewed introduction before opening the
+                listening phase, so a question does not interrupt the exhibit
+                presentation.
+              </p>
+              <p>
+                The backend's <code>TourSession</code> retains the current and
+                previous exhibit. References such as “this one” and comparisons
+                are resolved against that session before reviewed evidence is
+                sent to Dify. The model service is not the source of truth for
+                exhibit state.
+              </p>
+              <p>
+                When evidence is insufficient, the answer explains the gap and
+                suggests two answerable questions about the current exhibit. A
+                scene guard prevents competing glasses features from interfering
+                with the guide's microphone and display.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-engineering">
+            <summary>
+              <h2>Keeping service failures out of the subtitles</h2>
+            </summary>
+            <div class="topic-content">
+              <p>
+                A temporary SSL failure in the model service triggered the
+                reviewed-knowledge fallback, but an early implementation
+                appended internal service-status text to the visitor's
+                subtitles. I separated operational status from presentation:
+                logs retain the failure and fallback route, while HUD text
+                contains only the reviewed answer.
+              </p>
+              <p>
+                This fix addresses error presentation. It is not evidence that
+                the service never fails or that fallback answers cover every
+                visitor question.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-engineering">
+            <summary><h2>Recognition path</h2></summary>
+            <div class="topic-content">
+              <figure class="brief-aside">
+                <ol class="chain" aria-label="Recognition path">
+                  <li>
+                    <span>Rokid RV101 glasses</span
+                    ><span class="meta">camera video</span>
+                  </li>
+                  <li>
+                    <span>CXR-M link</span
+                    ><span class="meta">to NanoPC T6</span>
+                  </li>
+                  <li>
+                    <span>Android app</span
+                    ><span class="meta"
+                      >MediaCodec decode, pick a recent frame</span
+                    >
+                  </li>
+                  <li>
+                    <span>Python backend</span
+                    ><span class="meta"
+                      >multipart image request, recognition</span
+                    >
+                  </li>
+                  <li>
+                    <span>Glasses</span
+                    ><span class="meta"
+                      >reviewed introduction, then follow-up answers</span
+                    >
+                  </li>
+                </ol>
+                <figcaption>
+                  Recognition path, written out from the project's API contract.
+                  There are no internal screenshots because this was internship
+                  work.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+        </section>
+        <section
+          class="page-panel prose"
+          id="results"
+          aria-label="Results and evidence"
+        >
+          <details class="topic-details" name="rokid-results" open>
+            <summary><h2>Result and status</h2></summary>
+            <div class="topic-content">
+              <p>
+                Three August 4 device demo rounds passed: one reference-image
+                diagnostic and two physical exhibit flows with recognition,
+                grounded answers, visible HUD text and audible speech. The
+                August 19 handoff still listed six on-site checks for manual
+                confirmation. <a href="#limits">Scope and limits</a>
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-results">
+            <summary><h2>What was tested on hardware</h2></summary>
+            <div class="topic-content">
+              <p>
+                August 4 records three demonstration rounds on RV101 glasses
+                with a NanoPC T6. The first used reference images; the next two
+                used physical exhibits and confirmed the
+                recognition-to-answer-to-HUD/TTS chain. Software regression
+                checks cover additional guide behavior, while final on-site
+                acceptance remained a separate step.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-results">
+            <summary><h2>Software handoff, August 19</h2></summary>
+            <div class="topic-content">
+              <dl class="sample">
+                <div>
+                  <dt>Regression</dt>
+                  <dd>348 Python tests passed in the final handoff record.</dd>
+                </div>
+                <div>
+                  <dt>Dialogue</dt>
+                  <dd>
+                    181 / 181 evaluation cases passed; this is suite coverage,
+                    not visitor answer-quality accuracy.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Knowledge</dt>
+                  <dd>
+                    7 knowledge objects, 36 published chunks and 11 sources;
+                    retrieval checks passed 45 / 45 cases.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Device release</dt>
+                  <dd>
+                    Android unit checks, lint and APK build passed. Final
+                    glasses end-to-end acceptance still required manual field
+                    checks.
+                  </dd>
+                </div>
+              </dl>
+              <p>
+                These are dated software gates. They do not replace the earlier
+                hardware demos or prove that every exhibit was tested on site.
+              </p>
+            </div>
+          </details>
+          <details class="topic-details" name="rokid-results">
+            <summary><h2 id="limits">What remains to check</h2></summary>
+            <div class="topic-content">
+              <p>That coverage is narrower than it might sound:</p>
+              <ul>
+                <li>
+                  Seven knowledge objects were published to the guide. That
+                  counts content. It does not mean seven exhibits passed on
+                  site.
+                </li>
+                <li>
+                  The final handoff record on August 19 still listed six items
+                  waiting for manual confirmation on site.
+                </li>
+                <li>
+                  Nothing here measures recognition accuracy, latency, answer
+                  quality, or behaviour on other Rokid hardware.
+                </li>
+              </ul>
+            </div>
+          </details>
+        </section>
+        <nav class="case-return" aria-label="Project navigation">
+          <a class="action" href="/projects/">← All projects</a>
+        </nav>
+      </main>
+      <footer class="footer">
+        <a class="home-link" href="/">[ Home ]</a
+        ><span>© 2026 Jesse Zeng</span>
+        <div class="footer-links">
+          <a href="mailto:jesse.zeng.work@gmail.com">Email</a
+          ><a
+            href="https://github.com/Jesse-Zeng423"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          ><a
+            href="https://www.linkedin.com/in/jesse-zeng"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
